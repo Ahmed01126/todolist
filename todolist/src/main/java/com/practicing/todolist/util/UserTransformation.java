@@ -18,6 +18,10 @@ public class UserTransformation {
         if (userDto == null) {
             return null;
         }
-        return new User(UUID.randomUUID(),userDto.getName(), userDto.getEmail(), userDto.getPassword());
+        User user = new User();
+        user.setName(userDto.getName());
+        user.setEmail(userDto.getEmail());
+        user.setPassword(userDto.getPassword());
+        return user;
     }
 }

@@ -28,5 +28,4 @@ public class JwtService {
                 .compact();
     }
 
-    // Add other JWT methods as needed...
 }

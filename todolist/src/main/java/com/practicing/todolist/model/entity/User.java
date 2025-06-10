@@ -11,28 +11,22 @@ import java.util.UUID;
 @Data
 @Entity
 @NoArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Table(name = "users")
 public class User {
 
     @Id
-    @NonNull
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "uuid", updatable = false, nullable = false)
     private UUID id;
 
-    @NonNull
-    @Column(nullable = false)
-    private String email;
-
-    @NonNull
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    @NonNull
-    private String password;
+    @Column(name = "email", unique = true, nullable = false)
+    private String email;
 
-//    @Version
-//    private Long version;
+    @Column(name = "hashed_password", nullable = false)
+    private String password;
 
 }
