@@ -15,7 +15,7 @@ public class SecurityConfig {
         http
                 .csrf().disable() // for POST from Postman, disable CSRF
                 .authorizeHttpRequests()
-                .requestMatchers("/auth").permitAll() // allow unauthenticated access
+                .requestMatchers("/auth","/auth/register","/auth/login").permitAll() // allow unauthenticated access
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic(); // or .formLogin(), or your JWT filter

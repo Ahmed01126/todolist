@@ -24,11 +24,24 @@ public class UserService {
         this.jwtService = jwtService;
     }
 
-    public String registerUser(UserDto userDto) throws Exception {
+    @Transactional
+    public String registerUser(UserDto userDto) {
         User user = UserTransformation.transform(userDto);
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
         userRepository.save(user);
+        return jwtService.generateToken(user.toString());
+    }
+
+    @Transactional
+    public String loginUser(UserDto userDto) throws Exception {
+        User user = userRepository.findByEmail(userDto.getEmail())
+                .orElseThrow(() -> new Exception("User not found"));
+
+        if (!passwordEncoder.matches(userDto.getPassword(), user.getPassword())) {
+            throw new Exception("Invalid password");
+        }
+
         return jwtService.generateToken(user.toString());
     }
 
